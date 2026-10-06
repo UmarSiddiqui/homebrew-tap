@@ -8,7 +8,6 @@ cask "heymate" do
   desc "AI buddy in the MacBook notch that answers questions about your screen"
   homepage "https://getheymate.vercel.app/"
 
-  auto_updates true
   depends_on macos: :sonoma
 
   app "HeyMate.app"
