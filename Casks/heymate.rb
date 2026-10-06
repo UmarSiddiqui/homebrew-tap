@@ -9,16 +9,17 @@ cask "heymate" do
   homepage "https://getheymate.vercel.app/"
 
   auto_updates true
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   app "HeyMate.app"
 
   # HeyMate is signed with a self-signed certificate, not Apple Developer ID,
   # so Gatekeeper would block the quarantined copy. Same as the official
   # installer at https://getheymate.vercel.app/install.sh.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/HeyMate.app"]
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args:           ["-dr", "com.apple.quarantine", "{{appdir}}/HeyMate.app"],
+        writable_paths: ["{{appdir}}/HeyMate.app"]
   end
 
   uninstall quit: "com.heymate.app"
